@@ -3,7 +3,9 @@ import 'package:project_management/src/core/models/timeline_model.dart';
 import 'package:project_management/src/core/services/project_management_services/project_management_service.dart';
 import 'package:project_management/src/screen/auth/widget/costum_text_form_field.dart';
 import 'package:project_management/src/screen/auth/widget/expanded_button.dart';
+import 'package:project_management/utils/color.dart';
 import 'package:project_management/utils/costum_text.dart';
+import 'package:project_management/utils/text_style.dart';
 import 'package:project_management/utils/theme.dart';
 import 'package:provider/provider.dart';
 
@@ -43,11 +45,11 @@ class _AddProjectScreenState extends State<AddProjectScreen> {
           titleTimelineController.clear();
           descTimelineController.clear();
           showModalBottomSheet(
-              backgroundColor: secondaryColor,
+              backgroundColor: bgColor2,
               context: context,
               builder: (context) {
                 return Container(
-                  padding: EdgeInsets.symmetric(horizontal: defaultMargin),
+                  padding: EdgeInsets.symmetric(horizontal: 30),
                   height: 338,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -62,35 +64,35 @@ class _AddProjectScreenState extends State<AddProjectScreen> {
                               borderRadius: BorderRadius.circular(3)),
                         ),
                       ),
-                      SizedBox(height: defaultMargin),
+                      SizedBox(height: 30),
                       CostumText(
                         text: "Add Timeline",
-                        color: blackColor,
+                        color: whiteColor,
                         fontSize: 18,
                       ),
                       const SizedBox(height: 20),
-                      CostumTextFormField(
-                          bgColor: secondaryColor,
-                          textStyle: googlePoppins,
-                          controller: titleTimelineController,
-                          obscureText: false,
-                          hintStyle: googlePoppins,
-                          hintText: "Timeline Title"),
-                      const SizedBox(height: 30),
-                      CostumTextFormField(
-                          bgColor: secondaryColor,
-                          textStyle: googlePoppins,
-                          controller: descTimelineController,
-                          obscureText: false,
-                          hintStyle: googlePoppins,
-                          hintText: "Timeline Description"),
+                      // CostumTextFormField(
+                      //     bgColor: bgColor2,
+                      //     textStyle: googlePoppins,
+                      //     controller: titleTimelineController,
+                      //     obscureText: false,
+                      //     hintStyle: googlePoppins,
+                      //     hintText: "Timeline Title"),
+                      // const SizedBox(height: 30),
+                      // CostumTextFormField(
+                      //     bgColor: bgColor2,
+                      //     textStyle: googlePoppins,
+                      //     controller: descTimelineController,
+                      //     obscureText: false,
+                      //     hintStyle: googlePoppins,
+                      //     hintText: "Timeline Description"),
                       const SizedBox(height: 30),
                       ExpandedButton(
                           text: "Save",
                           isLoading: false,
                           textColor: whiteColor,
-                          buttonColor: accentColor,
-                          loadingButtonColor: accentDarkColor,
+                          buttonColor: primaryColor,
+                          loadingButtonColor: primaryColor.withOpacity(.8),
                           textStyle: googlePoppins,
                           onTap: () {
                             addTimeline(titleTimelineController.text,
@@ -110,46 +112,46 @@ class _AddProjectScreenState extends State<AddProjectScreen> {
           padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 100),
           child: Column(
             children: [
-              CostumTextFormField(
-                  bgColor: secondaryColor,
-                  textStyle: googlePoppins,
-                  controller: titleController,
-                  obscureText: false,
-                  hintStyle: googlePoppins,
-                  hintText: "Title"),
-              const SizedBox(height: 30),
-              CostumTextFormField(
-                  bgColor: secondaryColor,
-                  textStyle: googlePoppins,
-                  controller: descController,
-                  obscureText: false,
-                  hintStyle: googlePoppins,
-                  hintText: "Description"),
-              const SizedBox(height: 30),
-              ExpandedButton(
-                  text: "Save",
-                  isLoading: false,
-                  textColor: whiteColor,
-                  buttonColor: accentColor,
-                  loadingButtonColor: accentDarkColor,
-                  textStyle: googlePoppins,
-                  onTap: () {
-                    addProject();
+              // CostumTextFormField(
+              //     bgColor: bgColor2,
+              //     textStyle: googlePoppins,
+              //     controller: titleController,
+              //     obscureText: false,
+              //     hintStyle: googlePoppins,
+              //     hintText: "Title"),
+              // const SizedBox(height: 30),
+              // CostumTextFormField(
+              //     bgColor: bgColor2,
+              //     textStyle: googlePoppins,
+              //     controller: descController,
+              //     obscureText: false,
+              //     hintStyle: googlePoppins,
+              //     hintText: "Description"),
+              // const SizedBox(height: 30),
+              // ExpandedButton(
+              //     text: "Save",
+              //     isLoading: false,
+              //     textColor: whiteColor,
+              //     buttonColor: primaryColor,
+              //     loadingButtonColor: primaryColor.withOpacity(.8),
+              //     textStyle: googlePoppins,
+              //     onTap: () {
+              //       addProject();
 
-                    Navigator.pop(context);
-                  }),
-              ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: _timeline.length,
-                  itemBuilder: (context, index) {
-                    return Column(
-                      children: [
-                        Text(_timeline[index].title),
-                        const SizedBox(height: 12),
-                        Text(_timeline[index].description),
-                      ],
-                    );
-                  })
+              //       Navigator.pop(context);
+              //     }),
+              // ListView.builder(
+              //     shrinkWrap: true,
+              //     itemCount: _timeline.length,
+              //     itemBuilder: (context, index) {
+              //       return Column(
+              //         children: [
+              //           Text(_timeline[index].title),
+              //           const SizedBox(height: 12),
+              //           Text(_timeline[index].description),
+              //         ],
+              //       );
+              //     })
             ],
           ),
         ),

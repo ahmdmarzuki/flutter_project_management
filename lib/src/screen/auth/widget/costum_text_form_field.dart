@@ -7,6 +7,8 @@ class CostumTextFormField extends StatelessWidget {
   final TextStyle hintStyle;
   final TextEditingController controller;
   final bool obscureText;
+  final String icon;
+  final double iconHeight;
 
   const CostumTextFormField(
       {super.key,
@@ -14,7 +16,9 @@ class CostumTextFormField extends StatelessWidget {
       required this.textStyle,
       required this.controller,
       required this.obscureText,
-      required this.hintStyle, required this.hintText});
+      required this.hintStyle,
+      required this.hintText,
+      required this.icon, required this.iconHeight});
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +31,7 @@ class CostumTextFormField extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Row(
             children: [
+              Image.asset(icon, height: iconHeight,),
               Expanded(
                 child: TextFormField(
                     obscureText: obscureText,

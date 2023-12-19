@@ -3,7 +3,11 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:project_management/src/core/services/auth_services/auth_service.dart';
 import 'package:project_management/src/screen/auth/widget/costum_text_form_field.dart';
 import 'package:project_management/src/screen/auth/widget/expanded_button.dart';
+import 'package:project_management/utils/color.dart';
 import 'package:project_management/utils/costum_text.dart';
+import 'package:project_management/utils/fontweight.dart';
+import 'package:project_management/utils/margin.dart';
+import 'package:project_management/utils/text_style.dart';
 import 'package:project_management/utils/theme.dart';
 import 'package:provider/provider.dart';
 
@@ -16,14 +20,27 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<RegisterScreen> {
+  final usernameController = TextEditingController();
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+  final passwordConfirmationController = TextEditingController();
+
+  bool passIsHide = false;
+  bool passConfirmIsHide = false;
+  bool isLoading = false;
   @override
   Widget build(BuildContext context) {
-    final usernameController = TextEditingController();
-    final emailController = TextEditingController();
-    final passwordController = TextEditingController();
-    final passwordConfirmationController = TextEditingController();
+    void togglePass() {
+      setState(() {
+        passIsHide = !passIsHide;
+      });
+    }
 
-    bool isLoading = false;
+    void toggleConfirmPass() {
+      setState(() {
+        passConfirmIsHide = !passConfirmIsHide;
+      });
+    }
 
     void SignUp() async {
       if (passwordController.text == passwordConfirmationController.text) {
@@ -38,73 +55,227 @@ class _LoginScreenState extends State<RegisterScreen> {
       }
     }
 
+    Widget usernameInput() {
+      return Container(
+          height: 50,
+          width: double.infinity,
+          decoration: BoxDecoration(
+              color: bgColor4.withOpacity(.2),
+              borderRadius: BorderRadius.circular(12)),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Row(
+              children: [
+                Container(
+                  width: 30,
+                  child: Image.asset(
+                    'assets/icon_username.png',
+                    height: 20,
+                  ),
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: TextFormField(
+                      controller: emailController,
+                      style: googlePoppins,
+                      decoration: InputDecoration.collapsed(
+                          hintText: "Username", hintStyle: googlePoppins)),
+                ),
+              ],
+            ),
+          ));
+    }
+
+    Widget emailInput() {
+      return Container(
+          height: 50,
+          width: double.infinity,
+          decoration: BoxDecoration(
+              color: bgColor4.withOpacity(.2),
+              borderRadius: BorderRadius.circular(12)),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Row(
+              children: [
+                Container(
+                  width: 30,
+                  child: Image.asset(
+                    'assets/icon_email.png',
+                    height: 20,
+                  ),
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: TextFormField(
+                      controller: emailController,
+                      style: googlePoppins,
+                      decoration: InputDecoration.collapsed(
+                          hintText: "Email", hintStyle: googlePoppins)),
+                ),
+              ],
+            ),
+          ));
+    }
+
+    Widget passwordInput() {
+      return Container(
+          height: 50,
+          width: double.infinity,
+          decoration: BoxDecoration(
+              color: bgColor4.withOpacity(.2),
+              borderRadius: BorderRadius.circular(12)),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Row(
+              children: [
+                Container(
+                  width: 30,
+                  child: Image.asset(
+                    'assets/icon_password.png',
+                    height: 25,
+                  ),
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: TextFormField(
+                      obscureText: passIsHide ? true : false,
+                      controller: passwordController,
+                      style: googlePoppins,
+                      decoration: InputDecoration.collapsed(
+                          hintText: "Password", hintStyle: googlePoppins)),
+                ),
+                const Spacer(),
+                GestureDetector(
+                    onTap: () {
+                      togglePass();
+                    },
+                    child: Image.asset(
+                      passIsHide
+                          ? 'assets/icon_eye_close.png'
+                          : 'assets/icon_eye_open.png',
+                      width: 20,
+                      color: whiteColor,
+                    ))
+              ],
+            ),
+          ));
+    }
+
+    Widget passwordConfirmationInput() {
+      return Container(
+          height: 50,
+          width: double.infinity,
+          decoration: BoxDecoration(
+              color: bgColor4.withOpacity(.2),
+              borderRadius: BorderRadius.circular(12)),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Row(
+              children: [
+                Container(
+                  width: 30,
+                  child: Image.asset(
+                    'assets/icon_password.png',
+                    height: 25,
+                  ),
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: TextFormField(
+                      obscureText: passConfirmIsHide ? true : false,
+                      controller: passwordController,
+                      style: googlePoppins,
+                      decoration: InputDecoration.collapsed(
+                          hintText: "Re-Password", hintStyle: googlePoppins)),
+                ),
+                const Spacer(),
+                GestureDetector(
+                    onTap: () {
+                      toggleConfirmPass();
+                    },
+                    child: Image.asset(
+                      passConfirmIsHide
+                          ? 'assets/icon_eye_close.png'
+                          : 'assets/icon_eye_open.png',
+                      width: 20,
+                      color: whiteColor,
+                    ))
+              ],
+            ),
+          ));
+    }
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      backgroundColor: secondaryColor,
+      backgroundColor: bgColor1,
       body: SafeArea(
         child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 30),
+          padding: EdgeInsets.symmetric(
+              horizontal: defaultMargin, vertical: defaultMargin * 2),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              CostumTextFormField(
-                bgColor: blackColor.withOpacity(.2),
-                textStyle: GoogleFonts.poppins(),
-                controller: usernameController,
-                obscureText: false,
-                hintStyle: GoogleFonts.poppins(),
-                hintText: 'Username',
+              SizedBox(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    CostumText(
+                      text: "Getting Started",
+                      color: whiteColor,
+                      fontSize: 32,
+                      fontWeight: medium,
+                    ),
+                    CostumText(
+                        text: "Hello, enjoy your experience here !",
+                        color: secondaryTextColor,
+                        fontWeight: light)
+                  ],
+                ),
               ),
-              const SizedBox(height: 20),
-              CostumTextFormField(
-                bgColor: blackColor.withOpacity(.2),
-                textStyle: GoogleFonts.poppins(),
-                controller: emailController,
-                obscureText: false,
-                hintStyle: GoogleFonts.poppins(),
-                hintText: 'Email',
+              SizedBox(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset(
+                      'assets/image_register.png',
+                      height: 200,
+                    ),
+                    // usernameInput(),
+                    const SizedBox(height: 20),
+                    emailInput(),
+                    const SizedBox(height: 20),
+                    passwordInput(),
+                    const SizedBox(height: 20),
+                    passwordConfirmationInput(),
+                    const SizedBox(height: 40),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        CostumText(
+                            text: "Already have an account?",
+                            color: secondaryTextColor),
+                        const SizedBox(width: 4),
+                        GestureDetector(
+                            onTap: widget.onTap,
+                            child:
+                                CostumText(text: "Login", color: accentColor))
+                      ],
+                    ),
+                    const SizedBox(height: 12),
+                    ExpandedButton(
+                        text: "Register",
+                        isLoading: isLoading,
+                        textColor: whiteColor,
+                        buttonColor: primaryColor,
+                        loadingButtonColor: primaryColor.withOpacity(.7),
+                        textStyle: GoogleFonts.poppins(),
+                        onTap: () {
+                          SignUp();
+                        })
+                  ],
+                ),
               ),
-              const SizedBox(height: 20),
-              CostumTextFormField(
-                bgColor: blackColor.withOpacity(.2),
-                textStyle: GoogleFonts.poppins(),
-                controller: passwordController,
-                obscureText: false,
-                hintStyle: GoogleFonts.poppins(),
-                hintText: 'Password',
-              ),
-              const SizedBox(height: 20),
-              CostumTextFormField(
-                bgColor: blackColor.withOpacity(.2),
-                textStyle: GoogleFonts.poppins(),
-                controller: passwordConfirmationController,
-                obscureText: false,
-                hintStyle: GoogleFonts.poppins(),
-                hintText: 'Confirm Password',
-              ),
-              const SizedBox(height: 30),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  CostumText(
-                      text: "Already have an account?", color: blackColor),
-                  const SizedBox(width: 4),
-                  GestureDetector(
-                      onTap: widget.onTap,
-                      child: CostumText(text: "Login", color: accentColor))
-                ],
-              ),
-              const SizedBox(height: 12),
-              ExpandedButton(
-                  text: "Register",
-                  isLoading: isLoading,
-                  textColor: whiteColor,
-                  buttonColor: accentColor,
-                  loadingButtonColor: accentDarkColor,
-                  textStyle: GoogleFonts.poppins(),
-                  onTap: () {
-                    SignUp();
-                  })
             ],
           ),
         ),

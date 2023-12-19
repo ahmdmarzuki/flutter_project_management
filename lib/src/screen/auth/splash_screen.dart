@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:project_management/src/core/services/auth_services/auth_gate.dart';
+import 'package:project_management/utils/color.dart';
 import 'package:project_management/utils/costum_text.dart';
 import 'package:project_management/utils/theme.dart';
 
@@ -26,7 +27,8 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(child: CostumText(text: 'Splashhhh', color: blackColor)),
+      backgroundColor: bgColor1,
+      body: Center(child: CostumText(text: 'Splashhhh', color: whiteColor)),
     );
   }
 }

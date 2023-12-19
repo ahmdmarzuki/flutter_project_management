@@ -26,31 +26,27 @@ class _HomeScreenState extends State<HomeScreen> {
     }
 
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => const AddProjectScreen()));
-        },
-        child: const Icon(Icons.add),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            CostumText(
-              text: user.displayName.toString(),
-              color: blackColor,
-            ),
-            ElevatedButton(
-                onPressed: () {
+        appBar: AppBar(
+          toolbarHeight: 87,
+          actions: [
+            InkWell(
+                onTap: () {
                   signOut();
                 },
-                child: CostumText(text: 'Log out', color: whiteColor))
+                child: const Icon(Icons.close))
           ],
         ),
-      ),
-    );
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const AddProjectScreen()));
+          },
+          child: const Icon(Icons.add),
+        ),
+        body: Column(
+          children: [],
+        ));
   }
 }
