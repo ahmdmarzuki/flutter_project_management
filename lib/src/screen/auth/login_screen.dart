@@ -23,7 +23,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
-  bool passIsHide = false;
+  bool passIsHide = true;
 
   bool isLoading = false;
   @override
@@ -37,12 +37,16 @@ class _LoginScreenState extends State<LoginScreen> {
     void signIn() async {
       final authService = Provider.of<AuthService>(context, listen: false);
 
+      isLoading = true;
+
       try {
         await authService.signInByEmail(
             emailController.text.trim(), passwordController.text.trim());
       } on FirebaseAuthException catch (e) {
         throw FirebaseAuthException(code: e.code);
       }
+
+      isLoading = false;
     }
 
     Widget emailInput() {
@@ -67,9 +71,9 @@ class _LoginScreenState extends State<LoginScreen> {
                 Expanded(
                   child: TextFormField(
                       controller: emailController,
-                      style: googlePoppins,
+                      style: poppinsWhite,
                       decoration: InputDecoration.collapsed(
-                          hintText: "Email", hintStyle: googlePoppins)),
+                          hintText: "Email", hintStyle: poppinsGrey)),
                 ),
               ],
             ),
@@ -99,9 +103,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: TextFormField(
                       obscureText: passIsHide ? true : false,
                       controller: passwordController,
-                      style: googlePoppins,
+                      style: poppinsWhite,
                       decoration: InputDecoration.collapsed(
-                          hintText: "Password", hintStyle: googlePoppins)),
+                          hintText: "Password", hintStyle: poppinsGrey)),
                 ),
                 const Spacer(),
                 GestureDetector(
@@ -160,7 +164,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         CostumText(
-                            text: "Don't have any account?", color: secondaryTextColor),
+                            text: "Don't have any account?",
+                            color: secondaryTextColor),
                         const SizedBox(width: 4),
                         GestureDetector(
                             onTap: widget.onTap,

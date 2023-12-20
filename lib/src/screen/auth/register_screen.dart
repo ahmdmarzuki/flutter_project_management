@@ -25,8 +25,8 @@ class _LoginScreenState extends State<RegisterScreen> {
   final passwordController = TextEditingController();
   final passwordConfirmationController = TextEditingController();
 
-  bool passIsHide = false;
-  bool passConfirmIsHide = false;
+  bool passIsHide = true;
+  bool passConfirmIsHide = true;
   bool isLoading = false;
   @override
   Widget build(BuildContext context) {
@@ -77,9 +77,9 @@ class _LoginScreenState extends State<RegisterScreen> {
                 Expanded(
                   child: TextFormField(
                       controller: emailController,
-                      style: googlePoppins,
+                      style: poppinsWhite,
                       decoration: InputDecoration.collapsed(
-                          hintText: "Username", hintStyle: googlePoppins)),
+                          hintText: "Username", hintStyle: poppinsGrey)),
                 ),
               ],
             ),
@@ -108,9 +108,9 @@ class _LoginScreenState extends State<RegisterScreen> {
                 Expanded(
                   child: TextFormField(
                       controller: emailController,
-                      style: googlePoppins,
+                      style: poppinsWhite,
                       decoration: InputDecoration.collapsed(
-                          hintText: "Email", hintStyle: googlePoppins)),
+                          hintText: "Email", hintStyle: poppinsGrey)),
                 ),
               ],
             ),
@@ -140,9 +140,9 @@ class _LoginScreenState extends State<RegisterScreen> {
                   child: TextFormField(
                       obscureText: passIsHide ? true : false,
                       controller: passwordController,
-                      style: googlePoppins,
+                      style: poppinsWhite,
                       decoration: InputDecoration.collapsed(
-                          hintText: "Password", hintStyle: googlePoppins)),
+                          hintText: "Password", hintStyle: poppinsGrey)),
                 ),
                 const Spacer(),
                 GestureDetector(
@@ -184,9 +184,9 @@ class _LoginScreenState extends State<RegisterScreen> {
                   child: TextFormField(
                       obscureText: passConfirmIsHide ? true : false,
                       controller: passwordController,
-                      style: googlePoppins,
+                      style: poppinsWhite,
                       decoration: InputDecoration.collapsed(
-                          hintText: "Re-Password", hintStyle: googlePoppins)),
+                          hintText: "Re-Password", hintStyle: poppinsGrey)),
                 ),
                 const Spacer(),
                 GestureDetector(
@@ -271,7 +271,61 @@ class _LoginScreenState extends State<RegisterScreen> {
                         loadingButtonColor: primaryColor.withOpacity(.7),
                         textStyle: GoogleFonts.poppins(),
                         onTap: () {
-                          SignUp();
+                          showModalBottomSheet(
+                              backgroundColor: bgColor2,
+                              context: context,
+                              builder: (context) {
+                                return Container(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: defaultMargin),
+                                  height: 338,
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Center(
+                                        child: Container(
+                                          margin:
+                                              const EdgeInsets.only(top: 12),
+                                          height: 4,
+                                          width: 100,
+                                          decoration: BoxDecoration(
+                                              color: Colors.grey,
+                                              borderRadius:
+                                                  BorderRadius.circular(3)),
+                                        ),
+                                      ),
+                                      const Spacer(),
+                                      CostumText(
+                                        text: "Enter Your Name",
+                                        color: whiteColor,
+                                        fontSize: 20,
+                                      ),
+                                      CostumText(
+                                        text: "What should I call you?",
+                                        color: secondaryTextColor,
+                                        fontSize: 14,
+                                      ),
+                                      const SizedBox(height: 40),
+                                      usernameInput(),
+                                      const SizedBox(height: 20),
+                                      ExpandedButton(
+                                        text: "Let's Started",
+                                        isLoading: false,
+                                        textColor: whiteColor,
+                                        buttonColor: primaryColor,
+                                        loadingButtonColor:
+                                            primaryColor.withOpacity(.8),
+                                        textStyle: poppinsWhite,
+                                        onTap: () {
+                                          SignUp();
+                                        },
+                                      ),
+                                      SizedBox(height: defaultMargin * 2),
+                                    ],
+                                  ),
+                                );
+                              });
                         })
                   ],
                 ),
