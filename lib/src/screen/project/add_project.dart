@@ -180,6 +180,7 @@ class _AddProjectScreenState extends State<AddProjectScreen> {
               child: Column(
                 children: [
                   TextFormField(
+                    controller: titleController,
                     style: GoogleFonts.poppins(
                         fontSize: 28, color: whiteColor, fontWeight: light),
                     decoration: InputDecoration.collapsed(
@@ -191,6 +192,7 @@ class _AddProjectScreenState extends State<AddProjectScreen> {
                   ),
                   const SizedBox(height: 30),
                   TextFormField(
+                    controller: descController,
                     style: GoogleFonts.poppins(
                         fontSize: 20, color: whiteColor, fontWeight: light),
                     decoration: InputDecoration.collapsed(

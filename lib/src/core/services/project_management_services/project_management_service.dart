@@ -14,6 +14,7 @@ class ProjectManagementService extends ChangeNotifier {
   Future<void> addProject(
     String title,
     String description,
+    
     List<TimelineModel> timeline,
   ) async {
     try {
@@ -31,3 +32,4 @@ class ProjectManagementService extends ChangeNotifier {
     }
   }
 }
+

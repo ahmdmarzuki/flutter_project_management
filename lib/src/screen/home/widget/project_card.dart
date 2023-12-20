@@ -1,11 +1,19 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:project_management/utils/color.dart';
 import 'package:project_management/utils/costum_text.dart';
 import 'package:project_management/utils/fontweight.dart';
 
 class ProjectCard extends StatelessWidget {
+  final String title;
+  final String description;
+  final int totalTimeline;
+  // final DateTime createdAt;
   const ProjectCard({
     super.key,
+    required this.title,
+    required this.description, required this.totalTimeline,
+    // required this.createdAt,
   });
 
   @override
@@ -25,21 +33,20 @@ class ProjectCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   CostumText(
-                    text: "Title",
+                    text: title,
                     color: whiteColor,
                     fontSize: 22,
                     fontWeight: light,
                   ),
-                  CostumText(
-                      text: "description", color: secondaryTextColor)
+                  CostumText(text: description, color: secondaryTextColor)
                 ],
               ),
               // datetime progress column
               Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  CostumText(text: "12-12-23", color: whiteColor),
-                  CostumText(text: "0/8", color: secondaryTextColor)
+                  CostumText(text: '', color: whiteColor),
+                  CostumText(text: "0/${totalTimeline}", color: secondaryTextColor)
                 ],
               )
             ],
@@ -51,7 +58,7 @@ class ProjectCard extends StatelessWidget {
             backgroundColor: primaryColor.withOpacity(.5),
             minHeight: 6,
             borderRadius: BorderRadius.circular(3),
-            value: 2 / 8,
+            value: 0 / totalTimeline,
           )
         ],
       ),
